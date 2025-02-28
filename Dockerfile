@@ -1,0 +1,13 @@
+FROM python:3.13
+
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+COPY recipe_project .
+CMD ['gunicorn', 'recipe_project.wsgi:aplication', '--bind', '0.0.0.0:8000']

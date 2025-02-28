@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.title }}{% endblock %}
+
+{% block content %}
+<div>
+            {% if recipe.image %}
+               <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-thumbnail" style="max-width: 200px;">  {# Установите максимальную ширину изображения #}
+            {% else %}
+                <p>Изображение отсутствует</p>
+            {% endif %}
+            <p><strong><u>Категории:</u></strong>
+                {% for category in recipe.categories.all %}
+                    {{ category.name }}{% if not forloop.last %}, {% endif %}
+                {% empty %} Нет категорий {% endfor %}
+            </p>
+            <p><strong><u>Описание:</u></strong> {{ recipe.description }}</p>
+            <p><strong><u>Ингредиенты:</u></strong> {{ recipe.ingredients }}</p>
+            <p><strong><u>Время приготовления:</u></strong> {{ recipe.cooking_time }} минут</p>
+            <p><strong><u>Шаги приготовления:</u></strong> {{ recipe.steps }}</p>
+            <p><strong><u>Автор:</u></strong> {{ recipe.author }}</p>
+            <p><strong><u>Дата добавления:</u></strong> {{ recipe.created_at|date:"d-m-Y H:i" }}</p>
+        </div>
+<a href="{% url 'recipe:edit-recipe' recipe.pk %}" class="btn btn-warning">Редактировать</a>
+<a href="{% url 'recipe:delete-recipe' recipe.pk %}" class="btn btn-danger">Удалить</a>
+{% endblock %}

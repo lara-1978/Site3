@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center mb-4">Добро пожаловать на сайт рецептов!</h1>
+<div class="row mb-4">
+    <div class="col-6">
+        <p class="text-left text-muted small">На сайте рецептов: {{ recipes.count }}</p>
+    </div>
+
+</div>
+<div class="row">
+    {% if recipes %}
+        {% for recipe in recipes %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-light rounded">
+                <img src="{{ recipe.image.url }}" class="card-img-top img-fluid" alt="{{ recipe.title }}" style="max-width: 160px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ recipe.title }}</h5>
+                    <p class="card-text small-text">{{ recipe.ingredients|truncatewords:20 }} </p>
+                    <a href="{% url 'recipe:recipe-details' recipe.id %}" class="btn btn-primary btn-block">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <p class="text-center">По выбранной категории ничего не найдено.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

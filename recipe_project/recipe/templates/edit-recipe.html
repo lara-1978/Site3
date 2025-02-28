@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Recipe{% endblock %}
+
+{% block content %}
+<h1>Редактировать рецепт: {{ object.title }}</h1>
+<form method="post" enctype="multipart/form-data" class="form-horizontal">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.as_p }}
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Обновить" class="btn btn-warning">
+    </div>
+</form>
+{% endblock %}
